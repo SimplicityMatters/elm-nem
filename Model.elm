@@ -5,6 +5,11 @@ type alias Address =
     String
 
 
+stripAddress : Address -> Address
+stripAddress =
+    String.filter (\c -> c /= '-')
+
+
 type alias PublicKey =
     String
 
