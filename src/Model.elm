@@ -1,13 +1,10 @@
-module Model exposing (..)
+module Model exposing (AccountInfo, AccountMetaData, AccountMetaDataPair, Address, Balance, Proportion, PublicKey)
 
 
 type alias Address =
     String
 
 
-stripAddress : Address -> Address
-stripAddress =
-    String.filter (\c -> c /= '-')
 
 
 type alias PublicKey =

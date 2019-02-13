@@ -1,7 +1,7 @@
-module Decoders exposing (..)
+module Json exposing (Decoder, decodeAccountInfo, decodeAccountMetaData, decodeAccountMetaDataPair)
 
-import Json.Decode exposing (int, float, string, list, maybe)
-import Json.Decode.Pipeline exposing (decode, required)
+import Json.Decode exposing (float, int, list, maybe, string, succeed)
+import Json.Decode.Pipeline exposing (required)
 import Model exposing (..)
 
 
@@ -11,7 +11,7 @@ type alias Decoder a =
 
 decodeAccountInfo : Decoder AccountInfo
 decodeAccountInfo =
-    decode AccountInfo
+    succeed AccountInfo
         |> required "address" string
         |> required "balance" int
         |> required "vestedBalance" int
@@ -22,14 +22,14 @@ decodeAccountInfo =
 
 decodeAccountMetaDataPair : Decoder AccountMetaDataPair
 decodeAccountMetaDataPair =
-    decode AccountMetaDataPair
+    succeed AccountMetaDataPair
         |> required "account" decodeAccountInfo
         |> required "meta" decodeAccountMetaData
 
 
 decodeAccountMetaData : Decoder AccountMetaData
 decodeAccountMetaData =
-    decode AccountMetaData
+    succeed AccountMetaData
         |> required "status" string
         |> required "remoteStatus" string
         |> required "cosignatoryOf" (list decodeAccountInfo)

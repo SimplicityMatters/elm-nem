@@ -1,9 +1,9 @@
-module Tests exposing (..)
+module ApiTests exposing (suite)
 
-import Test exposing (..)
+import Api
 import Expect
 import Model
-import Api
+import Test exposing (..)
 
 
 defaultTestConfig : Api.Config
@@ -18,13 +18,13 @@ defaultTestAddress =
 
 suite : Test
 suite =
-    describe "Nem.Internal.url"
-        [ test "confirm output" <|
+    describe "Api.url"
+        [ test "builds a url to get chain height" <|
             \_ ->
                 let
                     params =
                         [ ( "address", defaultTestAddress ) ]
                 in
-                    Api.url defaultTestConfig "account/get" params
-                        |> Expect.equal ("http://127.0.0.1:7890/account/get?address=" ++ defaultTestAddress)
+                Api.url defaultTestConfig [ "chain", "height" ] []
+                    |> Expect.equal "http://127.0.0.1:7890/chain/height"
         ]
